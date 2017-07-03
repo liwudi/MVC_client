@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>vue学习</title>
+    <script type="text/javascript" src="https://unpkg.com/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <ol>
+            <li v-for="item in todos">
+                <dl>
+                    <dt>{{item.name}}</dt>
+                    <dd>{{item.description}}</dd>
+                </dl>
+            </li>
+
+        </ol>
+    </div>
+    <script>
+
+        new  Vue({
+            el:"#app",
+            data:{
+                todos:[],
+            },
+            created: function () {
+                var xhr = new XMLHttpRequest();
+                xhr.open('GET',"http://localhost:3000/login",true);
+                var _this = this;
+                xhr.send();
+                xhr.onload = function (res) {
+                    _this.todos = JSON.parse(xhr.responseText);
+                    console.log(JSON.parse(xhr.responseText));
+                }
+            },
+            methods:{
+                dealMessage: function () {
+                    this.message_array.push(this.message);
+                    this.message = '';
+                }
+            }
+        })
+    </script>
+</body>
+</html>
